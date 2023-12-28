@@ -1,17 +1,24 @@
 const express = require('express');
 const fs = require('fs');
+const cors = require('cors');
+const corsOptions = require('./config/corsOptions');
+
 const app = express();
 const port = 3000;
 
+// built-in middleware to handle urlencoded form data
+app.use(express.urlencoded({extended: false}));
+// built-in middleware for json
+app.use(express.json());
 
 const bodyParser = require('body-parser');
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.use(cors(corsOptions));
 // Serve the HTML form at root
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html'); // assuming you have an index.html file
-});
+// app.get('/', (req, res) => {
+//   res.sendFile(__dirname + '/index.html'); // assuming you have an index.html file
+// });
 
 // Handle POST request
 // app.post('/add-contact', (req, res) => {
@@ -35,6 +42,9 @@ app.get('/', (req, res) => {
 
 
 //
+app.use('/login', require('./routes/login'))
+
+
 app.use('/addNewContact', require('./routes/addNewContact/addNewContact'))
 
 
