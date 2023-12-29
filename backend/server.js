@@ -14,6 +14,16 @@ app.use(express.json());
 const bodyParser = require('body-parser');
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+//middleware for cookies
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
+// Handle options credentials check - before CORS!
+// and fetch cookies credentials requirement
+// const credentials = require('./middleware/credentials');
+// app.use(credentials);
+
+
 app.use(cors(corsOptions));
 // Serve the HTML form at root
 // app.get('/', (req, res) => {
@@ -40,12 +50,25 @@ app.use(cors(corsOptions));
 // });
 
 
+// Login Request
+app.use('/login', require('./routes/loginRegisterWithSms/loginSMS'))
+app.use('/refresh', require('./routes/auth/refresh')); // must extend
 
-//
-app.use('/login', require('./routes/login'))
+
+// i need to  verify JWT here
+const verifyJWT = require('./middleware/verifyJWT');
+
+app.use(verifyJWT);
+// users Action /add //delete // edit
+app.use('/users', require('./routes/users/users'))
 
 
-app.use('/addNewContact', require('./routes/addNewContact/addNewContact'))
+// Contacts Action
+// app.use('/addContact', require('./routes/contact/addnewUser'))
+// app.use('/deleteContact', require('./routes/contact/delete'))
+// app.use('/editContact', require('./routes/contact/edit'))
+// app.use('/listContact', require('./routes/contact/list'))
+
 
 
 app.listen(port, () => {
