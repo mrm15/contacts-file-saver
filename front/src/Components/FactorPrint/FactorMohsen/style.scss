@@ -1,0 +1,24 @@
+.factorMohsen {
+
+  //background-color: #48608f;
+
+  table {
+    width: 100%;
+    overflow: hidden;
+
+    tr, td, th {
+      border: 1px solid black;
+      text-align: center;
+    }
+  }
+
+
+}
+
+@media print {
+
+  .factorMohsen {
+    direction: rtl;
+    padding: 1cm;
+  }
+}

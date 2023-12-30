@@ -1,0 +1,133 @@
+.panel-sidebar:hover{
+  width: 230px;
+}
+
+.panel-sidebar {
+  background: #334667;
+  min-width: 65px;
+  width: 40px;
+  height: 96vh;
+  position: fixed;
+  z-index: 9999;
+  right: 2vh;
+  top: 2vh;
+  overflow: hidden;
+  transition: all 0.5s;
+  border-radius: 8px;
+
+  .logo-top {
+    padding: 0 4px !important;
+    padding-bottom: 30px !important;
+    padding-top: 10px !important;
+    display: flex;
+    width: 205px;
+    align-items: center;
+    font-weight: bold;
+    column-gap: 20px;
+    font-size: 14px;
+    color: white;
+  }
+
+  ul{
+    padding-right: 10px;
+  }
+
+  li {
+    padding: 10px 1px;
+    display: flex;
+    width: 205px;
+    align-items: center;
+    column-gap: 20px;
+    font-size: 13px;
+    color: white;
+
+    .link-copy {
+      cursor: pointer;
+    }
+
+    a {
+      display: flex;
+      column-gap: 24px;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      color: white;
+      text-decoration: none;
+
+      @media(max-width: 576px) {
+        color: #484848;
+        font-weight: 500;
+      }
+    }
+
+
+    .icon {
+      padding: 9px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+    }
+
+    a.active {
+
+      .active-icon {
+        display: block;
+      }
+
+      .default-icon {
+        display: none;
+      }
+    }
+
+    .active-icon {
+      display: none;
+
+      @media(max-width: 576px) {
+        display: block;
+      }
+    }
+
+    .default-icon {
+      @media(max-width: 576px) {
+        display: none;
+      }
+    }
+  }
+
+  .last-li {
+    position: absolute;
+    bottom: 0;
+    padding-bottom: 12px;
+  }
+
+  .panel-logo {
+    margin-bottom: 34px;
+    padding: 0 10px;
+  }
+
+  .panel-logo-lg {
+    margin-bottom: 34px;
+    padding: 0 10px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    display: none;
+  }
+
+}
+
+.swal2-title {
+  font-weight: 500;
+  font-size: 25px;
+}
+
+.swal2-cancel {
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.swal2-confirm {
+  font-weight: 500;
+  font-size: 20px;
+}

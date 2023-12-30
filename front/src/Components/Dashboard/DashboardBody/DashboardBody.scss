@@ -1,0 +1,40 @@
+.main-header {
+  //width: 90%;
+  //height: 10vh;
+  //background-color: transparent;
+  //color: #ffffff;
+  //margin-right: 100px;
+  position: relative;
+  display: flex;
+  justify-content: start;
+
+  .title-side{
+    //display: inline-flex;
+    //column-gap: 10px;
+    //align-items: center;
+
+    h4{
+      font-style: normal;
+      font-weight: 400;
+      color: #484848;
+    }
+  }
+
+  hr {
+    border-bottom: 1px solid #48608f;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+
+}
+
+.main-footer {
+width: 100%;
+  hr {
+    border-bottom: 1px solid #48608f;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}

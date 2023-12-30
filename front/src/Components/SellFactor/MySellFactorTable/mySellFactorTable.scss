@@ -1,0 +1,109 @@
+.box-table {
+  position: relative;
+  //background-color: rgba(26, 26, 26, 0.13);
+  //border: 1px solid #c2c2c2;
+  //border-radius: 5px;
+  //padding: 0;
+  //width: calc(100% - 5rem);
+  overflow: scroll;
+  width: 100%;
+  //max-width: 1000px;
+  //max-width: calc(100% - 16rem);
+
+  //overflow: scroll;
+  //margin: auto;
+  min-height: 350px;
+  height: 350px;
+  max-height: 350px;
+  //background-color: red;
+
+
+  .mySellFactorTable {
+    position: absolute;
+    //padding: 20px;
+    top: 0;
+    right: 0;
+    //width: 1500px;
+    //height: 100vh;
+    //background-color: indianred;
+
+
+    .myTable {
+       border: 1px solid #d5d5d5;
+      ul {
+        &:first-child{
+          font-weight: bold;
+
+        }
+        display: flex;
+        li {
+          input{
+            width: 100%;
+            height: 100%;
+            background: none;
+            text-align: center;
+            padding: 5px;
+            &:hover{}
+            &:focus{
+              outline: none;
+            }
+          }
+          //width: 100px;
+          height: auto;
+          border: 1px solid #d5d5d5;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 2px;
+
+          // ردیف
+          &:nth-child(1) {
+            width: 50px;
+          }// نام
+          &:nth-child(2) {
+            width: 300px;
+          }
+          // شرح
+          &:nth-child(3) {
+            width: 350px;
+          }
+          // واحد
+          &:nth-child(4) {
+            width: 90px;
+          }
+          // تعداد
+          &:nth-child(5) {
+            width: 150px;
+          }
+
+          // مبلغ واحد
+          &:nth-child(6) {
+            width: 120px;
+          }
+
+          // مبلغ کل
+          &:nth-child(7) {
+            display: none;
+
+          }
+          // مبلغ کل
+          &:nth-child(8) {
+            width: 110px;
+
+          }
+
+          // عملیات
+          &:nth-child(9) {
+            width: 110px;
+
+          }
+
+
+
+        }
+      }
+    }
+  }
+
+}
+

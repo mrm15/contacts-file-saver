@@ -1,0 +1,23 @@
+.main-dashboard-page{
+  font-style: normal;
+
+  .button-style{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid #48608f;
+    background-color: #48608f;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.4s;
+
+  }
+
+  .button-style:hover{
+    background-color: transparent;
+    color: #334667;
+  }
+}

@@ -1,0 +1,21 @@
+.main-dashboard{
+  width: 100%;
+  //height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #F5F5F5;
+
+  .main-content{
+    width: 100%;
+    //height: 82vh;
+    overflow: scroll;
+    display: inline-flex;
+
+    .main-outlet{
+      width: 100%;
+      height: 93%;
+      margin: 20px;
+    }
+  }
+
+}
