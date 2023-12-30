@@ -1,7 +1,7 @@
 const { deleteRowFromArray, findObjectByPhoneNumber} = require("../functions");
 const { usersFilePath } = require("../filesPath");
 
-const deleteUserController = async (req, res) => {
+const deleteContactsController = async (req, res) => {
   try {
     const { phoneNumber } = req.body;
 
@@ -33,4 +33,4 @@ const deleteUserController = async (req, res) => {
   }
 };
 
-module.exports = deleteUserController;
+module.exports = deleteContactsController;

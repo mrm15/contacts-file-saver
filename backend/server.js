@@ -62,6 +62,8 @@ app.use(verifyJWT);
 // users Action /add //delete // edit
 app.use('/users', require('./routes/users/users'))
 
+app.use('/contact', require('./routes/contact/contactsRouts'))
+
 
 // Contacts Action
 // app.use('/addContact', require('./routes/contact/addnewUser'))

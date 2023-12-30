@@ -3,7 +3,7 @@ const fs = require('fs').promises;
 
 const readArrayFile = async (filePath) => {
   try {
-    debugger
+     
     const data = await fs.readFile(filePath, 'utf8');
     return JSON.parse(data);
   } catch (error) {
@@ -29,11 +29,11 @@ const writeArrayFile = async (row, usersFilePath, res) => {
 
 const findObjectByPhoneNumber = async (phoneNumber, filePath, res) => {
   try {
-    debugger
+     
     const myArray = await readArrayFile(filePath);
-    debugger
+     
     const temp = myArray.find(row => row.phoneNumber === phoneNumber);
-    debugger
+     
     return temp;
   } catch (err) {
     res.status(500).json({message: 'Error finding user by phone number'});
@@ -54,7 +54,7 @@ const updateArray = async (caseToUpdate, filePath, res) => {
     });
     await writeArrayFile(updatedArray, filePath, res);
   } catch (err) {
-    debugger
+     
     res.status(500).json({message: 'Error updating Array'});
   }
 };

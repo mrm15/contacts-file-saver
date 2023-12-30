@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const {findObjectByPhoneNumber, updateArray} = require("./functions");
 
 const handleRefreshToken = async (req, res) => {
-  debugger
+   
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(401);
   const refreshToken = cookies.jwt;

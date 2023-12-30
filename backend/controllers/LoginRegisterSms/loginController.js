@@ -19,7 +19,7 @@ const handleLoginSMS = async (req, res) => {
   try {
     const user = await findObjectByPhoneNumber(phoneNumber, usersFilePath, res);
     console.log(user)
-    debugger
+     
     console.log(user)
     // اگه این آدم قبلا ثبت نام کرده بود. باید بگیم داری کلا اشتباه میزنی و گزینه ی آیا تا ب حال ثبت نام شده فعال بود دیگه نباید اجازه بدیم ادامه بده
     if (!user) {
