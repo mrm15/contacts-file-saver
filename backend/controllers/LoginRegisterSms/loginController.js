@@ -87,7 +87,7 @@ const verifyLoginSMS = async (req, res) => {
   // create JWTs  accessToken
   const accessToken = jwt.sign({
     "UserInfo": {...foundUser}
-  }, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1000s'});
+  }, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1000000000s'});
   const newRefreshToken = jwt.sign( //
     { //
       "phoneNumber": foundUser.phoneNumber //

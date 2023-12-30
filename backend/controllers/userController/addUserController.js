@@ -12,7 +12,7 @@ const addUserController = async (req, res) => {
       deleteContactAccess,
       listAllContactAccess,
       listOwnContactAccess,
-      exportContactAccess,
+      exportContactAccess,// اینو توی فرانت بر این اساس اجازه  اکسپورت از دیتای لیست رو میدم یا نه
       //////////////
       addUserAccess,
       deleteUserAccess,

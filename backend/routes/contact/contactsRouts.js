@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const addContactsController = require('../../controllers/contactController/addContactsController');
+const deleteContactsController = require('../../controllers/contactController/deleteContactsController');
+const editContactsController = require('../../controllers/contactController/editContactsController');
+const listOfContactsController = require('../../controllers/contactController/listOfContactsController');
 
 router.post('/add', addContactsController);
-// router.post('/edit', contactsRouts.postRequest);
-// router.post('/delete', contactsRouts.postRequest);
-// router.post('/list', contactsRouts.postRequest);
+router.post('/delete', deleteContactsController);
+router.post('/edit', editContactsController);
+router.post('/list', listOfContactsController);
 
 
-// router.get('/new', addNewUser.getRequest);
-// router.get('/getAllContacts', addNewContactController.getAllContacts);
 
 module.exports = router;

@@ -7,12 +7,12 @@ const addContactsController = async (req, res) => {
     const {
       firstName, lastName, phoneNumber, email, province, city, address,
     } = req.body;
-debugger
+
     const user = req?.userInfo.phoneNumber;
     if (!req?.userInfo?.addContactAccess) {
       return res.status(403).json({message: 'شما مجوز دسترسی به این بخش را ندارید!'});
     }
-    if (!phoneNumber || !name) {
+    if (!phoneNumber || !firstName) {
       return res.status(400).json({message: 'شماره تماس و نام باید وارد شوند.'});
     }
 

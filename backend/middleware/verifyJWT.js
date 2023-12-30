@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const {json} = require("body-parser");
 
 const verifyJWT = (req, res, next) => {
 
@@ -18,8 +19,8 @@ const verifyJWT = (req, res, next) => {
         (err, decoded) => {
             if (err) {
                
-              return res.sendStatus(403).json({
-                message:'عدم دسترسی در  وریفای جی دابیلو تی  '
+              return res.status(403).json({
+                message:'عدم دسترسی در  وریفای جی دابیلو تی  ' + JSON.stringify(err)
               });
             } //invalid token
             // req.user = decoded.UserInfo.username;
