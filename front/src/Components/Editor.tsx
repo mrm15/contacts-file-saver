@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 
 const Editor = () => {
+    debugger
     return (
         <section>
             <h1>فعلا چیزی نداریم</h1>

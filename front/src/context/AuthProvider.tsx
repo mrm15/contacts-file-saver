@@ -1,6 +1,5 @@
 import { createContext, useState } from "react";
-import jwt_decode from "jwt-decode";
-import Cookies from "js-cookie"; // Import the js-cookie library
+
 
 const AuthContext = createContext({});
 

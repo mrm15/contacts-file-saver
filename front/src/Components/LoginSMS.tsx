@@ -7,6 +7,7 @@ import useToggle from '../hooks/useToggle';
 import axios from '../api/axios';
 import LoginRegisterParent from "./Login_register_parent.tsx";
 import {toast} from "react-toastify";
+import {PAGES} from "../Pages/Route-string.tsx";
 
 const LOGIN_URL = '/login/new';
 const LOGIN_URL_verify = '/login/verify';
@@ -18,7 +19,8 @@ const LoginSMS = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || "/";
+    // const from = location.state?.from?.pathname || PAGES.ADD_CONTACT;
+    const from =  PAGES.ADD_CONTACT;
 
     const userRef = useRef();
     const errRef = useRef();
@@ -36,6 +38,7 @@ const LoginSMS = () => {
     const [check, toggleCheck] = useToggle('persist', true);
 
     useEffect(() => {
+        // @ts-ignore
         userRef.current.focus();
     }, [])
 
@@ -51,12 +54,13 @@ const LoginSMS = () => {
                 JSON.stringify({phoneNumber: user}),
                 {
                     headers: {'Content-Type': 'application/json'},
-                    withCredentials: true
+                    // withCredentials: true
                 }
             );
             console.log(response)
             if (response.data.status) {
                 toast.success(response?.data?.message)
+                response?.data?.text && toast.info(response?.data?.text)
             } else {
                 toast.error(response?.data?.message)
             }
@@ -71,6 +75,7 @@ const LoginSMS = () => {
             } else {
                 setErrMsg('ورود ناموفق!');
             }
+            // @ts-ignore
             errRef.current.focus();
         }
     }
@@ -83,15 +88,16 @@ const LoginSMS = () => {
                 JSON.stringify({phoneNumber: user, loginCode: pwd}),
                 {
                     headers: {'Content-Type': 'application/json'},
-                    withCredentials: true
+                    withCredentials: true,
+
                 }
             );
 
             const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
+            const userInfo = response?.data?.userInfo;
 
             //localStorage.setItem("3319173716", JSON.stringify({user, roles, accessToken}))
-            setAuth({user, pwd, roles, accessToken});
+            setAuth({userInfo, accessToken});
             resetUser();
             setPwd('');
             navigate(from, {replace: true});

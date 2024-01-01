@@ -1,7 +1,7 @@
 import {useState} from "react";
 import Modal from "../Modal/Modal";
 import {toast} from "react-toastify";
-import ObjectDataHolder from "../../hooks/ObjectDataHolder.tsx";
+import UseObjectDataHolder from "../../hooks/UseObjectDataHolder.tsx";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 
 
@@ -11,7 +11,7 @@ const AddGroupKala = ({setReload}) => {
     const axiosPrivate = useAxiosPrivate();
 
 
-    const [sendData, setSendData] = ObjectDataHolder({
+    const [sendData, setSendData] = UseObjectDataHolder({
         newCategory: ""
     })
     const [openModal, setOpenModal] = useState<boolean>(false)

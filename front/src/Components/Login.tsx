@@ -44,10 +44,10 @@ const Login = () => {
                 }
             );
             const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
+            const userInfo = response?.data?.userInfo;
 
             //localStorage.setItem("3319173716", JSON.stringify({user, roles, accessToken}))
-            setAuth({user, pwd, roles, accessToken});
+            setAuth({userInfo, accessToken});
             resetUser();
             setPwd('');
             navigate(from, {replace: true});

@@ -31,10 +31,10 @@ const SellFactor = () => {
 
             const sendData = {...data}
             delete sendData.productList;
-            //debugger
+
             const res = await axiosPrivate.post("/api/orders/submit/new", sendData)
 
-            debugger
+
             if (res?.data?.status) {
                 toast.success(res.data.message);
 

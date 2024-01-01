@@ -1,17 +1,27 @@
 import axios from "../api/axios";
 import useAuth from "./useAuth.js";
+import useAxiosPrivate from "./useAxiosPrivate.tsx";
+import {useNavigate} from "react-router-dom";
 
 const useLogout = () => {
     // @ts-ignore
     const { setAuth } = useAuth();
+    const myPrivateAxios = useAxiosPrivate()
 
     const logout = async () => {
-        setAuth({});
         try {
-            const response = await axios('/logout', {
+            const response = await myPrivateAxios.get('/logout', {
                 withCredentials: true
             });
-            console.log(response)
+            debugger
+            debugger
+            debugger
+            debugger
+            debugger
+            debugger
+            debugger
+            setAuth({})
+
 
         } catch (err) {
             console.error(err);

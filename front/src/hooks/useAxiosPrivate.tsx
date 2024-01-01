@@ -6,8 +6,8 @@ import {toast} from "react-toastify";
 
 const useAxiosPrivate = () => {
     const refresh = useRefreshToken();
-    const { auth } = useAuth();
-
+    const { auth,setAuth } = useAuth();
+debugger
     useEffect(() => {
         const requestIntercept = axiosPrivate.interceptors.request.use(
             config => {
@@ -31,6 +31,11 @@ const useAxiosPrivate = () => {
                     return axiosPrivate(prevRequest);
                 }
                 if(error?.response?.status === 400){
+                    toast.error(error?.response.data.message)
+                    return error
+
+                }
+                if(error?.response?.status === 401){
                     toast.error(error?.response.data.message)
                     return error
 
