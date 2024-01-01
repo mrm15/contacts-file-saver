@@ -85,8 +85,20 @@ const deleteRowFromArray = async (phoneNumber, filePath, res) => {
   }
 };
 
+const findObjectByRefreshToken = async (refreshToken, filePath, res)=>{
+  try {
+
+    const myArray = await readArrayFile(filePath);
+
+    return myArray.find(row => row.refreshToken === refreshToken);
+  } catch (err) {
+    res.status(500).json({message: 'Error finding user by phone number'});
+  }
+}
+
 
 module.exports = {
   addRowToArray, updateArray, findObjectByPhoneNumber,deleteRowFromArray,
-  readArrayFile
+  readArrayFile,
+  findObjectByRefreshToken
 }

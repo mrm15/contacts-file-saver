@@ -14,7 +14,7 @@ const handleLoginSMS = async (req, res) => {
 
   let {phoneNumber: phoneNumber} = req.body;
 
-  if (!phoneNumber) return res.status(400).json({'message': 'شماره تلفن یافت نشد'});
+  if (!phoneNumber) return res.sendStatus(400).json({'message': 'شماره تلفن یافت نشد'});
 
   try {
     const user = await findObjectByPhoneNumber(phoneNumber, usersFilePath, res);
@@ -23,7 +23,7 @@ const handleLoginSMS = async (req, res) => {
     console.log(user)
     // اگه این آدم قبلا ثبت نام کرده بود. باید بگیم داری کلا اشتباه میزنی و گزینه ی آیا تا ب حال ثبت نام شده فعال بود دیگه نباید اجازه بدیم ادامه بده
     if (!user) {
-      return res.status(401).json({
+      return res.sendStatus(401).json({
         status: false, message: "کاربری با این شماره تلفن یافت نشد! ."
       });
     }
@@ -33,7 +33,7 @@ const handleLoginSMS = async (req, res) => {
     const text = generateLoginSms(loginCode)
     const isSend = await sendSms(text, phoneNumber)
     if (!isSend) {
-      res.status(500).json({status: true, message: "ارسال پیام موفقیت آمیز نبود"})
+      res.sendStatus(500).json({status: true, message: "ارسال پیام موفقیت آمیز نبود"})
       return
     }
 
@@ -47,11 +47,11 @@ const handleLoginSMS = async (req, res) => {
     user.updateAt = currentTimeStamp
     await updateArray(user, usersFilePath, res);
 
-    res.status(200).json({'status': true, message: "کد ورود به سایت پیامک شد.", text});
+    res.sendStatus(200).json({'status': true, message: "کد ورود به سایت پیامک شد.", text});
 
 
   } catch (err) {
-    res.status(500).json({'message': err.message});
+    res.sendStatus(500).json({'message': err.message});
   }
 
 }
@@ -62,28 +62,27 @@ const verifyLoginSMS = async (req, res) => {
   const cookies = req.cookies;
   //console.log(`cookie available at login: ${JSON.stringify(cookies)}`);
   const {phoneNumber: phoneNumber, loginCode: loginCode} = req.body;
-  if (!phoneNumber) return res.status(400).json({'message': 'شماره تلفن را وارد کنید'});
-  if (!loginCode) return res.status(400).json({'message': 'کد ورود را وارد کنید'});
+  if (!phoneNumber) return res.sendStatus(400).json({'message': 'شماره تلفن را وارد کنید'});
+  if (!loginCode) return res.sendStatus(400).json({'message': 'کد ورود را وارد کنید'});
 
   // const foundUser = await User.findOne({phoneNumber}).exec();
   const foundUser = await findObjectByPhoneNumber(phoneNumber, usersFilePath, res);
 
 
-  if (!foundUser) return res.status(401).json({'message': 'کاربری با این شماره تلفن یافت نشد'}); //Unauthorized
+  if (!foundUser) return res.sendStatus(401).json({'message': 'کاربری با این شماره تلفن یافت نشد'}); //Unauthorized
 
 
   //  چون بعد از لاگین کد ورود رو پاک میکنم پس اگه کد ورود خالی بود. ینی کاربر هنوز درخواست کد ورود نداده
   if (foundUser.loginCode === "") {
-    return res.status(401).json({'message': 'لطفا مجددا درخواست ارسال کد ورود دهید.'})
+    return res.sendStatus(401).json({'message': 'لطفا مجددا درخواست ارسال کد ورود دهید.'})
   }
 
 
   if (+foundUser.loginCode !== +loginCode) {
-    return res.status(401).json({'message': 'کد ورود صحیح نیست'})
+    return res.sendStatus(401).json({'message': 'کد ورود صحیح نیست'})
   }
 
-  console.log(process.env.ACCESS_TOKEN_SECRET);
-  console.log(process.env.REFRESH_TOKEN_SECRET);
+
   // create JWTs  accessToken
   const accessToken = jwt.sign({
     "UserInfo": {...foundUser}
@@ -125,12 +124,20 @@ const verifyLoginSMS = async (req, res) => {
   // console.log(result);
   // console.log(isAdmin);
 
-  // Creates Secure Cookie with refresh token
   res.cookie('jwt', newRefreshToken, {httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000});
+
+  // Creates Secure Cookie with refresh token
+  // res.cookie('jwt', newRefreshToken, {
+    // httpOnly: true,
+    // secure: false,
+    // sameSite: 'None',
+    // sameSite: 'Lax',
+    // maxAge: 24 * 60 * 60 * 1000,//
+  // });
 
   // Send authorization roles and access token to user
   res.json({
-    accessToken, data: {
+    accessToken, userInfo: {
       phoneNumber: foundUser.phoneNumber,
       name: foundUser.name,
       addContactAccess: foundUser.addContactAccess,

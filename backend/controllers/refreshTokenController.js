@@ -1,10 +1,11 @@
 // const User = require('../models/User');
-let filePath = require("./filesPath");
+let {usersFilePath} = require("./filesPath");
 const jwt = require('jsonwebtoken');
-const {findObjectByPhoneNumber, updateArray} = require("./functions");
+const {findObjectByRefreshToken, updateArray} = require("./functions");
 
 const handleRefreshToken = async (req, res) => {
-   
+
+  debugger
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(401);
   const refreshToken = cookies.jwt;
@@ -12,56 +13,70 @@ const handleRefreshToken = async (req, res) => {
 
   // const foundUser = await User.findOne({ refreshToken }).exec();
 
-  const phoneNumber =res?.userInfo?.phoneNumber||''
 
-  const foundUser = await findObjectByPhoneNumber(phoneNumber, filePath.usersFilePath, res)
+  const foundUser = await findObjectByRefreshToken(refreshToken, usersFilePath, res)
 
   // Detected refresh token reuse!
   if (!foundUser) {
-    jwt.verify(
-      refreshToken,
-      process.env.REFRESH_TOKEN_SECRET,
-      async (err, decoded) => {
-        if (err) return res.sendStatus(403).json({
-          message:'عدم دسترسی در  رفرش توکن'
-        }); //Forbidden
-        console.log('attempted refresh token reuse!')
-        const hackedUser = await User.findOne({ username: decoded.username }).exec();
-        hackedUser.refreshToken = [];
-        const result = await hackedUser.save();
-        console.log(result);
-      }
-    )
+
+    // jwt.verify(
+    //   refreshToken,
+    //   process.env.REFRESH_TOKEN_SECRET,
+    //   async (err, decoded) => {
+    //     if (err) return res.sendStatus(403).json({
+    //       message:'عدم دسترسی در  رفرش توکن'
+    //     }); //Forbidden
+    //     console.log('attempted refresh token reuse!')
+    //     const hackedUser = await User.findOne({ username: decoded.username }).exec();
+    //     hackedUser.refreshToken = [];
+    //     const result = await hackedUser.save();
+    //     console.log(result);
+    //   }
+    // )
     return res.sendStatus(403).json({
-      message:'عدم دسترسی در  رفرش توکن'
+      message:'عدم دسترسی به  رفرش توکن'
     }); //Forbidden
   }
 
-  const newRefreshTokenArray = foundUser.refreshToken.filter(rt => rt !== refreshToken);
+  // const newRefreshTokenArray = foundUser.refreshToken.filter(rt => rt !== refreshToken);
 
   // evaluate jwt
   jwt.verify(
     refreshToken,
+
     process.env.REFRESH_TOKEN_SECRET,
     async (err, decoded) => {
       if (err) {
+        debugger
         console.log('expired refresh token')
-        foundUser.refreshToken = [...newRefreshTokenArray];
-        const result = await updateArray(foundUser,filePath.usersFilePath,res)
+        foundUser.refreshToken =refreshToken;
+        const result = await updateArray(foundUser,usersFilePath,res)
         console.log(result);
       }
-      if (err || foundUser.username !== decoded.username) return res.sendStatus(403).json({
+      if (err || foundUser.username !== decoded.username)
+        return res.sendStatus(403).json({
         message:'عدم دسترسی در  رفرش کنترلر'
       });
 
       // Refresh token was still valid
-      const roles = Object.values(foundUser.roles);
+      const userInfo =       {
+        "phoneNumber": foundUser.phoneNumber,
+        "name": foundUser.name,
+        "addContactAccess": foundUser.addContactAccess,
+        "editContactAccess": foundUser.editContactAccess,
+        "deleteContactAccess": foundUser.deleteContactAccess,
+        "listAllContactAccess": foundUser.listAllContactAccess,
+        "listOwnContactAccess": foundUser.listOwnContactAccess,
+        "addUserAccess": foundUser.addUserAccess,
+        "deleteUserAccess": foundUser.deleteUserAccess,
+        "editUserAccess": foundUser.editUserAccess,
+        "listUserAccess": foundUser.listUserAccess,
+      }
+
+
       const accessToken = jwt.sign(
         {
-          "UserInfo": {
-            "phoneNumber": decoded.phoneNumber,
-            "roles": roles
-          }
+          "UserInfo": decoded.userInfo
         },
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: '3600s' }
@@ -74,14 +89,17 @@ const handleRefreshToken = async (req, res) => {
       );
       // Saving refreshToken with current user
       foundUser.refreshToken =  newRefreshToken;
-      const result = await updateArray(foundUser,filePath.usersFilePath,res)
+      const result = await updateArray(foundUser,usersFilePath,res)
 
       // Creates Secure Cookie with refresh token
       res.cookie('jwt', newRefreshToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
 
-      res.json({ roles, accessToken })
+      debugger
+      return res.json({ userInfo, accessToken })
     }
   );
 }
 
 module.exports = {handleRefreshToken}
+
+

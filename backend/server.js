@@ -4,7 +4,7 @@ const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
 
 const app = express();
-const port = 3000;
+const port = 3050;
 
 // built-in middleware to handle urlencoded form data
 app.use(express.urlencoded({extended: false}));
@@ -20,8 +20,8 @@ app.use(cookieParser());
 
 // Handle options credentials check - before CORS!
 // and fetch cookies credentials requirement
-// const credentials = require('./middleware/credentials');
-// app.use(credentials);
+const credentials = require('./middleware/credentials');
+app.use(credentials);
 
 
 app.use(cors(corsOptions));
@@ -56,9 +56,11 @@ app.use('/refresh', require('./routes/auth/refresh')); // must extend
 
 
 // i need to  verify JWT here
-const verifyJWT = require('./middleware/verifyJWT');
 
+const verifyJWT = require('./middleware/verifyJWT');
 app.use(verifyJWT);
+app.use('/logout', require('./routes/loginRegisterWithSms/logout'))
+
 // users Action /add //delete // edit
 app.use('/users', require('./routes/users/users'))
 

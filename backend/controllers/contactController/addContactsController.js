@@ -3,12 +3,23 @@ const {contactsFilePath} = require("../filesPath");
 
 const addContactsController = async (req, res) => {
 
+
   try {
+
+    debugger
     const {
       firstName, lastName, phoneNumber, email, province, city, address,
     } = req.body;
 
+    debugger
+    if(!req?.userInfo){
+      res.status(401).json({message:'userInfo موجود  نیست!'})
+
+    }
     const user = req?.userInfo.phoneNumber;
+    if(!user){
+      res.status(401).json({message:'نام کاربری کاربر ثبت کننده موجود  نیست!'})
+    }
     if (!req?.userInfo?.addContactAccess) {
       return res.status(403).json({message: 'شما مجوز دسترسی به این بخش را ندارید!'});
     }
