@@ -5,6 +5,7 @@ import "./style.scss"
 import {axiosPrivate} from "../../api/axios.tsx";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 import {toast} from "react-toastify";
+import {useLocation, useNavigate} from "react-router-dom";
 
 // Define the props interface
 interface AddContactProps {
@@ -20,30 +21,34 @@ interface AddContactProps {
     }; // '?' makes the property optional
 }
 
+const initialFormData = {
+    "firstName": "",
+    "lastName": "",
+    "phoneNumber": "",
+    "email": "",
+    "user": "",
+    "province": "",
+    "city": "",
+    "address": "",
+}
+
 const MODES = {
     ADD: "add",
     EDIT: "edit"
 }
 
-function AddContact(props: AddContactProps) {
+function AddContact() {
 
 
-    const contactData = props.contactData;
-    const mode = contactData?.phoneNumber ? MODES.EDIT : MODES.ADD;
+    const myLocation = useLocation()
+    //const mode = contactData?.phoneNumber ? MODES.EDIT : MODES.ADD;
+    const [mode, setMode] = useState(MODES.ADD)
+
 
     const title = mode === MODES.EDIT ? 'ویرایش مخاطب' : 'افزودن مخاطب';
 
 
-    const [contactForm, setContactForm] = useObjectDataHolder({
-        "firstName": "",
-        "lastName": "",
-        "phoneNumber": "",
-        "email": "",
-        "user": "",
-        "province": "",
-        "city": "",
-        "address": "",
-    })
+    const [contactForm, setContactForm] = useObjectDataHolder({...initialFormData})
 
     const [addContactForm, setAddContactForm] = useState([
         {
@@ -106,12 +111,14 @@ function AddContact(props: AddContactProps) {
 
     useEffect(() => {
 
-        if (!contactData?.phoneNumber) {
-            return;
+
+        if (myLocation?.state?.data) {
+            setMode(MODES.EDIT)
+            setContactForm(myLocation?.state?.data);
+
         }
 
-        setContactForm(contactData);
-    }, [props?.contactData]);
+    }, [myLocation?.state?.data]);
 
     useEffect(() => {
         const temp = addContactForm?.map(v => {
@@ -132,7 +139,6 @@ function AddContact(props: AddContactProps) {
     }, [contactForm])
 
 
-    console.log(contactForm)
     const changeHandler = (value: any, objectKey: string) => {
         debugger
         setContactForm({[objectKey]: value})
@@ -146,26 +152,42 @@ function AddContact(props: AddContactProps) {
     }
 
 
+    const navigateTo = useNavigate()
     const myAxiosPrivate = useAxiosPrivate()
     const submitHandler = async () => {
-        const url = mode === MODES.ADD ? '/contact/add' : 'contacts/edit'
+        const url = mode === MODES.ADD ? '/contact/add' : 'contact/edit'
         try {
             const res = await myAxiosPrivate.post(url, contactForm)
             debugger
             if (res.data.message) {
-                toast.success(res.data.message)
+                toast.success(res.data.message);
+                if (mode === MODES.EDIT) {
+                    navigateTo(-1)
+                } else {
+                    setContactForm(initialFormData)
+                }
             }
         } catch (error) {
             toast(JSON.stringify(error))
         }
     }
 
+    const addContactHandleOnHeader = () => {
+        setMode(MODES.ADD);
+        setContactForm(initialFormData)
+
+    }
 
     try {
         return (
             <div>
                 <div>
-                    <div>{title}</div>
+                    <div className={'flex flex-wrap gap-2 cursor-pointer my-3.5'}>
+                        <div className={'font-bold'}>{title}</div>
+                        {mode === MODES.EDIT && <button
+                          onClick={addContactHandleOnHeader}
+                        > افزودن </button>}
+                    </div>
                     <div className={'flex flex-wrap gap-1'}>
                         {addContactForm?.map((row, index) => {
                             const awesomeChangeHandler = (v) => {

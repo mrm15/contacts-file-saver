@@ -9,7 +9,12 @@ const MyGridComponent = (props) => {
     const {columnDefs, rowData} = props
     const [myColumnDefs, setMyColumnDefs] = useState(columnDefs);
 
-    const [myRowData] = useState(rowData);
+    const [myRowData, setMyRowData] = useState(rowData);
+
+    // این افکت برای وقتهی که محتوای جدول عوض بشه باید دوباره یه رندر بشه تا آپدیت بشه
+    useEffect(() => {
+        setMyRowData(rowData)
+    }, [rowData]);
 
     const onBodyScroll = useCallback((event) => {
         console.log("Scroll Event: ", event);
