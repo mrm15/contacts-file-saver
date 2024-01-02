@@ -1,23 +1,27 @@
 // const User = require('../models/User');
 let {usersFilePath} = require("./filesPath");
 const jwt = require('jsonwebtoken');
-const {findObjectByRefreshToken, updateArray} = require("./functions");
+const {findObjectByRefreshToken, updateArray, findObjectByPhoneNumber} = require("./functions");
 
 const handleRefreshToken = async (req, res) => {
 
   debugger
   const cookies = req.cookies;
-  if (!cookies?.jwt) return res.sendStatus(401);
+  if (!cookies?.jwt) return res.status(401).json({
+    message:`
+    کوکی های ارسالی شامل اون     جی دابلیو تی  که لازم داریم نیست   شرمنده `
+  });
+
   const refreshToken = cookies.jwt;
   res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
 
   // const foundUser = await User.findOne({ refreshToken }).exec();
 
 
-  const foundUser = await findObjectByRefreshToken(refreshToken, usersFilePath, res)
+  const foundRefreshToken = await findObjectByRefreshToken(refreshToken, usersFilePath, res)
 
   // Detected refresh token reuse!
-  if (!foundUser) {
+  if (!foundRefreshToken) {
 
     // jwt.verify(
     //   refreshToken,
@@ -33,9 +37,9 @@ const handleRefreshToken = async (req, res) => {
     //     console.log(result);
     //   }
     // )
-    return res.sendStatus(403).json({
-      message:'عدم دسترسی به  رفرش توکن'
-    }); //Forbidden
+    return res.status(401).json({
+      message:' توکن معتبر نیست'
+    }); //
   }
 
   // const newRefreshTokenArray = foundUser.refreshToken.filter(rt => rt !== refreshToken);
@@ -46,55 +50,59 @@ const handleRefreshToken = async (req, res) => {
 
     process.env.REFRESH_TOKEN_SECRET,
     async (err, decoded) => {
+      debugger
       if (err) {
         debugger
         console.log('expired refresh token')
-        foundUser.refreshToken =refreshToken;
-        const result = await updateArray(foundUser,usersFilePath,res)
-        console.log(result);
+        return res.status(500).json({'status': false, message: err+'this is here '});
       }
-      if (err || foundUser.username !== decoded.username)
-        return res.sendStatus(403).json({
-        message:'عدم دسترسی در  رفرش کنترلر'
-      });
 
+
+      const phoneNumber = decoded?.phoneNumber
       // Refresh token was still valid
-      const userInfo =       {
-        "phoneNumber": foundUser.phoneNumber,
-        "name": foundUser.name,
-        "addContactAccess": foundUser.addContactAccess,
-        "editContactAccess": foundUser.editContactAccess,
-        "deleteContactAccess": foundUser.deleteContactAccess,
-        "listAllContactAccess": foundUser.listAllContactAccess,
-        "listOwnContactAccess": foundUser.listOwnContactAccess,
-        "addUserAccess": foundUser.addUserAccess,
-        "deleteUserAccess": foundUser.deleteUserAccess,
-        "editUserAccess": foundUser.editUserAccess,
-        "listUserAccess": foundUser.listUserAccess,
+
+      if(!phoneNumber){
+        return  res.status(401).json({
+          message:'توکن معتبر نیست..... شماره توی توکن نبود که!! رفرش توکن اشتباهه',
+        })
       }
 
 
-      const accessToken = jwt.sign(
-        {
-          "UserInfo": decoded.userInfo
-        },
+      const foundUser = await findObjectByPhoneNumber(phoneNumber,usersFilePath,res)
+
+      const accessToken = jwt.sign({
+        "UserInfo": {...foundUser},
+      },
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: '3600s' }
       );
 
-      const newRefreshToken = jwt.sign(
-        { "phoneNumber": foundUser.phoneNumber },
-        process.env.REFRESH_TOKEN_SECRET,
-        { expiresIn: '1d' }
-      );
+      //
+      const newRefreshToken = jwt.sign( //
+        { //
+          "phoneNumber": foundUser.phoneNumber //
+        }, //
+        process.env.REFRESH_TOKEN_SECRET, {expiresIn: '1d'});
+
       // Saving refreshToken with current user
       foundUser.refreshToken =  newRefreshToken;
-      const result = await updateArray(foundUser,usersFilePath,res)
+      await updateArray(foundUser,usersFilePath,res)
 
       // Creates Secure Cookie with refresh token
       res.cookie('jwt', newRefreshToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
 
-      debugger
+      const userInfo = {
+        phoneNumber: foundUser.phoneNumber,
+        name: foundUser.name,
+        addContactAccess: foundUser.addContactAccess,
+        editContactAccess: foundUser.editContactAccess,
+        deleteContactAccess: foundUser.deleteContactAccess,
+        listAllContactAccess: foundUser.listAllContactAccess,
+        listOwnContactAccess: foundUser.listOwnContactAccess,
+        addUserAccess: foundUser.addUserAccess,
+        deleteUserAccess: foundUser.deleteUserAccess,
+        editUserAccess: foundUser.editUserAccess,
+      }
       return res.json({ userInfo, accessToken })
     }
   );
