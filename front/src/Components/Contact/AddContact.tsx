@@ -4,6 +4,7 @@ import DynamicFormInputs from "../UI/FormInputType/DynamicFormInputs.tsx";
 import "./style.scss"
 import {axiosPrivate} from "../../api/axios.tsx";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
+import {toast} from "react-toastify";
 
 // Define the props interface
 interface AddContactProps {
@@ -28,7 +29,7 @@ function AddContact(props: AddContactProps) {
 
 
     const contactData = props.contactData;
-    const mode = contactData.phoneNumber ? MODES.EDIT : MODES.ADD;
+    const mode = contactData?.phoneNumber ? MODES.EDIT : MODES.ADD;
 
     const title = mode === MODES.EDIT ? 'ویرایش مخاطب' : 'افزودن مخاطب';
 
@@ -105,28 +106,35 @@ function AddContact(props: AddContactProps) {
 
     useEffect(() => {
 
-        if (!contactData.phoneNumber) {
+        if (!contactData?.phoneNumber) {
             return;
         }
 
         setContactForm(contactData);
-    }, [props.contactData]);
+    }, [props?.contactData]);
 
     useEffect(() => {
-        const temp = addContactForm.map(v => {
+        const temp = addContactForm?.map(v => {
             const row = {...v}
-            const rowName = v.name
-            row.value = contactData[rowName]
-            // if(contactData[rowName])
-            return row
-        })
 
+            try {
+                const rowName = v?.name
+                row.value = contactForm[rowName]
+                // if(contactData[rowName])
+                return row
+            } catch (error) {
+                console.log(error)
+                return row
+            }
+
+        })
         setAddContactForm(temp)
-    }, [JSON.stringify(contactForm)]);
+    }, [contactForm])
 
 
     console.log(contactForm)
-    const changeHandler = (value: any ,objectKey: string) => {
+    const changeHandler = (value: any, objectKey: string) => {
+        debugger
         setContactForm({[objectKey]: value})
     }
 
@@ -139,13 +147,17 @@ function AddContact(props: AddContactProps) {
 
 
     const myAxiosPrivate = useAxiosPrivate()
-    const submitHandler = () => {
+    const submitHandler = async () => {
         const url = mode === MODES.ADD ? '/contact/add' : 'contacts/edit'
-        const res = myAxiosPrivate.post(url, contactForm)
-if(res.data)
-        
-        console.log(res)
-
+        try {
+            const res = await myAxiosPrivate.post(url, contactForm)
+            debugger
+            if (res.data.message) {
+                toast.success(res.data.message)
+            }
+        } catch (error) {
+            toast(JSON.stringify(error))
+        }
     }
 
 
@@ -157,13 +169,14 @@ if(res.data)
                     <div className={'flex flex-wrap gap-1'}>
                         {addContactForm?.map((row, index) => {
                             const awesomeChangeHandler = (v) => {
+                                debugger
                                 changeHandler(v, row.name)
 
                             }
 
-                            return <div className={''}>
+                            return <div className={''} key={index}>
                                 <DynamicFormInputs
-                                    key={index}
+
                                     row={row}
                                     onChange={awesomeChangeHandler}
                                     onBlur={onBlur}

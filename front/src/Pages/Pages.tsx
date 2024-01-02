@@ -12,6 +12,7 @@ import LoginSMS from "../Components/LoginSMS.tsx";
 
 import {PAGES} from "./Route-string.tsx"
 import AddContact from "../Components/Contact/AddContact.tsx";
+import ListContact from "../Components/Contact/ListContact.tsx";
 
 const ROLES = {
     "addContactAccess": "addContactAccess",
@@ -62,16 +63,15 @@ const Pages = () => {
                             <Route path={'/'} element={<Home/>}/>
                         </Route>
 
-                        <Route element={<RequireAuth allowedRoles={ROLES.User}/>}>
-                            <Route path={PAGES.EDIT_USER} element={<Home/>}/>
-                        </Route>
 
                         <Route element={<RequireAuth allowedRoles={ROLES.addContactAccess}/>}>
-                            <Route path={PAGES.ADD_CONTACT} element={<AddContact
-                                contactData={{}}
-                            />}/>
+                            <Route path={PAGES.ADD_CONTACT} element={<AddContact/>}/>
                             {/*<Route path="add-contact" element={<AddProduct/>}/>*/}
 
+                        </Route>
+
+                        <Route element={<RequireAuth allowedRoles={ROLES.listAllContactAccess}/>}>
+                            <Route path={PAGES.LIST_CONTACTS} element={<ListContact/>}/>
                         </Route>
 
 

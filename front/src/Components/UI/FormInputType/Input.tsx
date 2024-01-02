@@ -1,4 +1,3 @@
-import React from 'react';
 
 function StingType(props) {
   const {
@@ -8,22 +7,22 @@ function StingType(props) {
 
   try {
     return (<input
-      {...row}
+     // {...row}
       // autoFocus
       onBlur={onBlur}
 
       type={"text"}
-      value={row.value}
+      value={row?.value}
       placeholder={row.placeholder}
 
-      maxLength={Math.floor(row.maxLength + (row.maxLength / 3))} // این میتونه دقیق تر و بهتر هم باشه
+      //maxLength={Math.floor(row.maxLength + (row.maxLength / 3))} // این میتونه دقیق تر و بهتر هم باشه
       onChange={e => {
         let value = e.target.value;
         onChange(value)
       }}
     />);
   } catch (error) {
-    return <>{error.toString()}</>
+    return <>{error?.toString()}</>
   }
 }
 
