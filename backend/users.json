@@ -7,14 +7,15 @@
     "deleteContactAccess": true,
     "listAllContactAccess": true,
     "listOwnContactAccess": true,
+    "exportContactAccess": true,
     "addUserAccess": true,
     "deleteUserAccess": true,
     "editUserAccess": true,
     "listUserAccess": true,
     "loginCode": "",
-    "loginCodeSendDate": 1704093450,
-    "updateAt": 1704093477,
-    "refreshToken": ""
+    "loginCodeSendDate": 1704187906,
+    "updateAt": 1704187911,
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZU51bWJlciI6IjA5Mzg0NjQyMTU5IiwiaWF0IjoxNzA0MTk1MTkwLCJleHAiOjE3MDQyODE1OTB9.HHa0bKY43rA5yhP474B_mdQejo92rfp6ay3WSXDtGtg"
   },
   {
     "phoneNumber": "093846421596",

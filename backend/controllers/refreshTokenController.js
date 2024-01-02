@@ -102,6 +102,7 @@ const handleRefreshToken = async (req, res) => {
         addUserAccess: foundUser.addUserAccess,
         deleteUserAccess: foundUser.deleteUserAccess,
         editUserAccess: foundUser.editUserAccess,
+        exportContactAccess: foundUser.exportContactAccess,
       }
       return res.json({ userInfo, accessToken })
     }

@@ -9,7 +9,7 @@ const deleteContactsController = async (req, res) => {
     // Assuming userInfo is set earlier in the middleware
 
     if (!req?.userInfo?.deleteContactAccess) {
-      return res.status(403).json({ message: 'شما مجوز دسترسی به ذف مخاطب را ندارید!' });
+      return res.status(403).json({ message: 'شما مجوز دسترسی به حذف مخاطب را ندارید!' });
     }
 
     if (!phoneNumber) {
