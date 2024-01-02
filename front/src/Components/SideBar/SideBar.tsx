@@ -14,6 +14,7 @@ import {
 } from "react-icons/fi";
 import {Link} from "react-router-dom";
 import {IconType} from "react-icons";
+import {PAGES} from "../../Pages/Route-string.tsx";
 
 type CustomIconType = {
     icon: IconType;
@@ -28,9 +29,10 @@ type MenuType = {
 const Home = () => {
     const menus: MenuType = [
         {name: "داشبورد", link: "/", icon: MdOutlineDashboard},
-        {name: "ثبت سفارش", link: "/SellFactor", icon: AiOutlineUser},
-        {name: "افزودن کالا موقت", link: "/AddProduct", icon: FiMessageSquare},
-        {name: "ListProduct", link: "/ListProduct", icon: FiMessageSquare},
+        {name: "مخاطب جدید", link: PAGES.ADD_CONTACT, icon: AiOutlineUser},
+        {name: "لیست مخاطبین", link:PAGES.LIST_CONTACTS, icon: FiMessageSquare},
+        {name: 'افزودن کاربر', link: PAGES.ADD_USER, icon: FiMessageSquare},
+        {name: 'لیست کاربران', link: PAGES.ADD_USER, icon: FiMessageSquare},
         // { name: "analytics", link: "/", icon: TbReportAnalytics, margin: true },
         // { name: "File Manager", link: "/", icon: FiFolder },
         // { name: "Cart", link: "/", icon: FiShoppingCart },
