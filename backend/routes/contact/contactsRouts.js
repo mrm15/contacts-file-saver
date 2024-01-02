@@ -8,7 +8,7 @@ const listOfContactsController = require('../../controllers/contactController/li
 router.post('/add', addContactsController);
 router.post('/delete', deleteContactsController);
 router.post('/edit', editContactsController);
-router.post('/list', listOfContactsController);
+router.get('/list', listOfContactsController);
 
 
 
