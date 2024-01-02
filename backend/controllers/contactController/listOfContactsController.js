@@ -3,11 +3,12 @@ const {contactsFilePath} = require("../filesPath");
 
 const listOfContactsController = async (req, res) => {
 
-  const user = req.userInfo.phoneNumber; // user that request data
+  const user = req?.userInfo?.phoneNumber; // user that request data
 
 
   try {
 
+    debugger
 
     const listOwnContactAccess = req?.userInfo?.listOwnContactAccess
     const listAllContactAccess = req?.userInfo?.listAllContactAccess
@@ -16,7 +17,7 @@ const listOfContactsController = async (req, res) => {
       const data = await readArrayFile(contactsFilePath);
 
       if (listAllContactAccess) {
-        res.status(200).json(data);
+        return res.status(200).json(data);
       }
 
       if (listOwnContactAccess) {
@@ -25,12 +26,12 @@ const listOfContactsController = async (req, res) => {
         const result = data.filter(v => {
           return v.user === user
         })
-        res.status(200).json(result);
+        return res.status(200).json(result);
       }
 
 
     } else {
-      res.status(406).send({
+      return res.status(406).send({
         message: 'شما مجوز دسترسی به این بخش را ندارید!'
       });
     }
@@ -38,7 +39,7 @@ const listOfContactsController = async (req, res) => {
 
     //////////////////////////////////////////////
     const data = await readArrayFile(contactsFilePath);
-    res.status(200).json(data);
+    return res.status(200).json(data);
 
 //
 
@@ -48,9 +49,9 @@ const listOfContactsController = async (req, res) => {
 
   } catch (err) {
     if (err.code === 'ENOENT') {
-      res.status(404).json([]);
+      return res.status(404).json([]);
     } else {
-      res.status(500).json({message: 'در هنگام دریافت اطلاعات خطایی رخ داد.'});
+      return res.status(500).json({message: 'در هنگام دریافت اطلاعات خطایی رخ داد.'});
     }
   }
 };
