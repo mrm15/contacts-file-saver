@@ -20,16 +20,21 @@ const deleteContactsController = async (req, res) => {
      
     if(objectFound){
 
-      await deleteRowFromArray(phoneNumber, contactsFilePath, res);
-      res.status(200).json({ message: ' با موفقیت حذف شد.' });
+     try{
+       await deleteRowFromArray(phoneNumber, contactsFilePath, res);
+       return res.status(200).json({ message: ' با موفقیت حذف شد.' });
+     }catch (error){
+       return res.status(406).json({ message: error });
+     }
 
     }else {
-      res.status(200).json({ message: 'موردی با این شماره تلفن یافت نشد.' });
+      return res.status(200).json({ message: 'موردی با این شماره تلفن یافت نشد.' });
 
     }
 
   } catch (err) {
-    res.status(500).json({ message: 'یه مشکلی موقع به حذف کردن  پیش اومد.' });
+    console.log(err)
+    return res.status(500).json({ message: 'یه مشکلی موقع به حذف کردن  پیش اومد.' + err  });
   }
 };
 

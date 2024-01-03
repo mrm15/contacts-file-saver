@@ -23,7 +23,7 @@ const writeArrayFile = async (row, usersFilePath, res) => {
   try {
     await fs.writeFile(usersFilePath, JSON.stringify(row, null, 2));
   } catch (err) {
-    res.status(500).json({message: 'Error writing to users file'});
+    return res.status(500).json({message: 'Error writing to users file'});
   }
 };
 
@@ -36,7 +36,7 @@ const findObjectByPhoneNumber = async (phoneNumber, filePath, res) => {
      
     return temp;
   } catch (err) {
-    res.status(500).json({message: 'Error finding user by phone number'});
+    return res.status(500).json({message: 'Error finding user by phone number'});
   }
 };
 
@@ -54,8 +54,8 @@ const updateArray = async (caseToUpdate, filePath, res) => {
     });
     await writeArrayFile(updatedArray, filePath, res);
   } catch (err) {
-     
-    res.status(500).json({message: 'Error updating Array'});
+
+    return res.status(500).json({message: 'Error updating Array'});
   }
 };
 
@@ -65,7 +65,7 @@ const addRowToArray = async (newRow, filePath, res) => {
     myArray.push(newRow);
     await writeArrayFile(myArray, filePath, res);
   } catch (err) {
-    res.status(500).json({message: 'Error adding new user'});
+    return res.status(500).json({message: 'Error adding new user'});
   }
 };
 const deleteRowFromArray = async (phoneNumber, filePath, res) => {
@@ -79,9 +79,10 @@ const deleteRowFromArray = async (phoneNumber, filePath, res) => {
     await writeArrayFile(filteredArray, filePath, res);
 
     // Optionally, you can send a response indicating success
-    res.status(200).json({ message: 'حذف شد' });
+    //return res.status(200).json({ message: 'حذف شد' });
   } catch (err) {
-    res.status(500).json({ message: 'مشکلی در حذف پیش اومد.. حذف نشد.' });
+    console.log(err)
+    //return res.status(500).json({ message: 'مشکلی در حذف پیش اومد.. حذف نشد.' });
   }
 };
 
@@ -92,7 +93,7 @@ const findObjectByRefreshToken = async (refreshToken, filePath, res)=>{
 
     return myArray.find(row => row.refreshToken === refreshToken);
   } catch (err) {
-    res.status(500).json({message: 'Error finding user by phone number'});
+    return res.status(500).json({message: 'Error finding user by phone number'});
   }
 }
 
