@@ -1,5 +1,3 @@
-import React from 'react';
-
 function TextareaType({onChange, onBlur,row}) {
   return (<textarea
     {...row}

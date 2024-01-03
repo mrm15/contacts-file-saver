@@ -1,7 +1,6 @@
-import {ReactElement, JSXElementConstructor, ReactNode, ReactPortal, Key} from "react";
+import {Key} from "react";
 import {v4 as uuidV4} from "uuid";
-import {Simulate} from "react-dom/test-utils";
-import change = Simulate.change;
+
 
 const ControlColumns = ({columnDefs, onChange}) => {
 

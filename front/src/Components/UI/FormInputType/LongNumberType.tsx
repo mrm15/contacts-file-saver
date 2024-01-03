@@ -1,4 +1,3 @@
-import React from 'react';
 
 function LongNumberType({row,onChange,onBlur}) {
   return <input

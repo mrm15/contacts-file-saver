@@ -1,4 +1,3 @@
-import React from 'react';
 
 function DayType({row, onChange, onBlur}) {
   return <input

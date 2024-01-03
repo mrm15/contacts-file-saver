@@ -1,8 +1,6 @@
-import React from 'react';
-
 function StingType(props) {
   const {
-    id, row, onChange, onBlur
+    row, onChange, onBlur
   } = props
 
 

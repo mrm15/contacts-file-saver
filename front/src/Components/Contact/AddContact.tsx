@@ -2,14 +2,12 @@ import {useEffect, useState} from 'react';
 import useObjectDataHolder from "../../hooks/UseObjectDataHolder.tsx";
 import DynamicFormInputs from "../UI/FormInputType/DynamicFormInputs.tsx";
 import "./style.scss"
-import {axiosPrivate} from "../../api/axios.tsx";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 import {toast} from "react-toastify";
 import {useLocation, useNavigate} from "react-router-dom";
 
 // Define the props interface
-interface AddContactProps {
-    contactData?: {
+interface AddContactProps  {
         "firstName": string;
         "lastName": string;
         "phoneNumber": string;
@@ -18,10 +16,10 @@ interface AddContactProps {
         "province": string;
         "city": string;
         "address": string;
-    }; // '?' makes the property optional
-}
+    } // '?' makes the property optional
 
-const initialFormData = {
+
+const initialFormData:AddContactProps = {
     "firstName": "",
     "lastName": "",
     "phoneNumber": "",

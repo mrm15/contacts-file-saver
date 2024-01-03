@@ -4,6 +4,7 @@ import {PAGES} from "../Pages/Route-string.tsx";
 
 const RequireAuth = ({allowedRoles}) => {
     debugger
+    // @ts-ignore
     const {auth} = useAuth();
     const location = useLocation();
     let isAllowed = false

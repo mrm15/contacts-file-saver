@@ -32,7 +32,6 @@ export const COMPONENT_TYPE: ComponentType = {
     "file": FormInputTypes.FileType,
     "textarea": FormInputTypes.TextareaType,//
     "computed": FormInputTypes.Computed,//
-    "editor": FormInputTypes.Editor,//
     // اگه در آینده بک اند تایپ جدیدی اضفه کرد باید اینجا اضفه کنیم و کامپوننت خودشو اضافه کنیم
 };
 

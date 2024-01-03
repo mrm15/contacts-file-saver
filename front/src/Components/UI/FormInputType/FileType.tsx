@@ -1,7 +1,6 @@
 import  {useRef} from 'react';
 
 const FileType= ({ row, onBlur, onChange}) => {
-  const maxSize = row['maxSize'];
   const fileInputRef = useRef(null);
 
   const handleButtonClick = () => {

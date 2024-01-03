@@ -2,19 +2,20 @@ import AggridDataShow from "../AgGridDataShow/AggridDataShow.tsx";
 import {useEffect, useState} from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 import Loader from "../Loader";
-import DeleteButton from "../../assets/icons/deleteButton.tsx";
+import DeleteButton from "../../assets/icons/DeleteButton.tsx";
 import EditButton from "../../assets/icons/EditButton.tsx";
 import {useNavigate} from "react-router-dom";
 import {PAGES} from "../../Pages/Route-string.tsx";
 import {toast} from "react-toastify";
 import DownloadIcon from "../../assets/icons/DownloadIcon.tsx";
 import useAuth from "../../hooks/useAuth.tsx";
-import {getCurrentDate, handleDownloadContacts, makeReadyToDownloadFile} from "../../utils/utilsFunction.tsx";
+import {getCurrentDate,  makeReadyToDownloadFile} from "../../utils/utilsFunction.tsx";
 
 function ListContact() {
 
+    // @ts-ignore
     const {auth} = useAuth()
-    debugger
+
 
     const [isLoading, setIsLoading] = useState(true)
     const [reload, setReload] = useState(1)
@@ -84,7 +85,7 @@ function ListContact() {
                     </button>
                 </div>
             ),
-            cellStyle: (params) => ({
+            cellStyle: () => ({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -159,8 +160,6 @@ function ListContact() {
                     <AggridDataShow
                         columnDefs={myColumnDefs}
                         rowData={myRowData}
-
-
                     />
 
 

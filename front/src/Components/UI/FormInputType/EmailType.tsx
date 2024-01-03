@@ -1,4 +1,3 @@
-import React from 'react';
 
 function EmailType({row,onChange,onBlur}) {
   return (<input

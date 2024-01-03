@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import  {useEffect, useRef} from 'react';
 import numeric from "../../../utils/NumericFunction";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
@@ -12,22 +12,22 @@ const FormDatePicker = (props) => {
   useEffect(() => {
 
 
-    const handleBlur = () => {
 
-      // onblurHandler(id, row)
-    }
     const handleKeyDown = (event) => {
       if (event?.keyCode === 9) {
-        dateCal?.current?.closeCalendar();
+        // @ts-ignore
+          dateCal?.current?.closeCalendar();
       }
     };
 
-    dateCal?.current?.addEventListener("keydown", handleKeyDown);
+    // @ts-ignore
+      dateCal?.current?.addEventListener("keydown", handleKeyDown);
     // dateCal?.current?.addEventListener("focusout", handleBlur);
 
     // Cleanup function
     return () => {
-      dateCal?.current?.removeEventListener("keydown", handleKeyDown);
+      // @ts-ignore
+        dateCal?.current?.removeEventListener("keydown", handleKeyDown);
       // dateCal?.current?.removeEventListener("focusout", handleBlur);
 
     };

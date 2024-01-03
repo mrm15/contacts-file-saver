@@ -3,11 +3,8 @@ import {Route, Routes} from "react-router-dom";
 import Layout from "../Components/Layout";
 import PersistLogin from "../Components/PersistLogin"
 import RequireAuth from "../Components/RequireAuth"
-import Editor from "../Components/Editor"
 import Home from "../Components/Home"
-import Admin from "../Components/Admin"
 import Missing from "../Components/Missing"
-import Lounge from "../Components/Lounge"
 import LoginSMS from "../Components/LoginSMS.tsx";
 
 import {PAGES} from "./Route-string.tsx"
@@ -75,14 +72,8 @@ const Pages = () => {
                         </Route>
 
 
-                        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]}/>}>
-                            <Route path="admin" element={<Admin/>}/>
-                            {/*<Route path="settings" element={<Settings/>}/>*/}
-                        </Route>
 
-                        <Route element={<RequireAuth allowedRoles={[ROLES.Editor, ROLES.Admin]}/>}>
-                            <Route path="lounge" element={<Lounge/>}/>
-                        </Route>
+
                     </Route>
 
                     {/* catch all */}

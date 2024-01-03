@@ -9,6 +9,7 @@ const PersistLogin = () => {
     debugger
     const [isLoading, setIsLoading] = useState(true);
     const refresh = useRefreshToken();
+    // @ts-ignore
     const {auth} = useAuth();
     const [persist] = useLocalStorage('persist', false);
 

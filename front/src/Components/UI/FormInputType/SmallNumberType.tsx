@@ -1,5 +1,3 @@
-import React from 'react';
-
 function SmallNumberType({row, onChange, onBlur}) {
   return <input
     type={'text'}

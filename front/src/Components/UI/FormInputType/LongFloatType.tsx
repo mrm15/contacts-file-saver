@@ -1,5 +1,3 @@
-import React from 'react';
-
 function LongFloatType({row,onChange,onBlur}) {
   return <input
     type={'text'}

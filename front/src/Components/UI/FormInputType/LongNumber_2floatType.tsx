@@ -1,5 +1,3 @@
-import React from 'react';
-
 function LongNumber2FloatType({row, onBlur, onChange}) {
   function formatValue_longNumber_2float(input) {
     // Remove non-numeric and non-dot characters

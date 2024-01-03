@@ -51,7 +51,7 @@ const MyGridComponent = (props) => {
         setMyColumnDefs(newCols)
     }
     return (
-        <div className="ag-theme-alpine" style={{height: "60vh", width: '80vw', direction: 'rtl'}}
+        <div className="ag-theme-alpine" style={{height: "60vh", width: '100%', direction: 'rtl'}}
         >
             <AgGridReact
 
@@ -65,7 +65,8 @@ const MyGridComponent = (props) => {
                 defaultColDef={{
                     flex: 1,
                     minWidth: 100,
-                    filter: true
+                    filter: true,
+                    resizable: true,
                 }}
 
 

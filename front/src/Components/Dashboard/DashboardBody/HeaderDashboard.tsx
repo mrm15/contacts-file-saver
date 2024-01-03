@@ -8,6 +8,7 @@ import useAuth from "../../../hooks/useAuth.tsx";
 
 const HeaderDashboard = () => {
 
+    // @ts-ignore
     const {auth} = useAuth();
 
     const location = useLocation();

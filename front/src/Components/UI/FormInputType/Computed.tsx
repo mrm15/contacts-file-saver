@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Computed = ({row,}) => {
   return (<input
   disabled={true}

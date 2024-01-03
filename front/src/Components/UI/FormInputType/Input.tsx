@@ -1,4 +1,3 @@
-
 function StingType(props) {
   const {
      row, onChange, onBlur

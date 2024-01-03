@@ -1,5 +1,3 @@
-import React from 'react';
-
 function CashBoxType({row,onChange,onBlur}) {
   return (<>
     <input
@@ -12,7 +10,7 @@ function CashBoxType({row,onChange,onBlur}) {
     <datalist id={row.id}>
       {row?.options?.map((option, index) => {
 
-        return <option value={option}>{option}</option>
+        return <option key={index} value={option}>{option}</option>
       })}
     </datalist>
   </>);

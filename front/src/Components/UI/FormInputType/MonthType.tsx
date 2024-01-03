@@ -1,4 +1,3 @@
-import React from 'react';
 
 // Note:  please add cu
 function MonthType({row, onChange, onBlur}) {

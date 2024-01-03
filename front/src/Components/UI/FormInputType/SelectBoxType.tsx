@@ -1,7 +1,5 @@
-import React from 'react';
-
 function SelectBoxType({
-                         id, row, onChange, onBlur
+                          row, onChange, onBlur
                        }) {
   try {
     return (<select

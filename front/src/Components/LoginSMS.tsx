@@ -1,6 +1,6 @@
 import {useRef, useState, useEffect} from 'react';
 import useAuth from '../hooks/useAuth';
-import {Link, useNavigate, useLocation} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import useInput from '../hooks/useInput';
 import useToggle from '../hooks/useToggle';
 
@@ -15,10 +15,11 @@ const LOGIN_URL_verify = '/login/verify';
 const LoginSMS = () => {
 
 
+    // @ts-ignore
     const {setAuth} = useAuth();
 
     const navigate = useNavigate();
-    const location = useLocation();
+
     // const from = location.state?.from?.pathname || PAGES.ADD_CONTACT;
     const from =  PAGES.ADD_CONTACT;
 
@@ -111,6 +112,7 @@ const LoginSMS = () => {
             } else {
                 setErrMsg('Login Failed');
             }
+            // @ts-ignore
             errRef.current.focus();
         }
     }

@@ -1,6 +1,4 @@
-import React from 'react';
-import {formatToPersianAddComma, parseToEnRemoveComma} from "../../../utils/CommaSeparator";
-import NumericFunction from "../../../utils/NumericFunction";
+import { parseToEnRemoveComma} from "../../../utils/CommaSeparator";
 import numeric from "../../../utils/NumericFunction";
 
 function PriceType({row, onBlur, onChange}) {

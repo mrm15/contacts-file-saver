@@ -1,5 +1,3 @@
-import React from 'react';
-
 function TelephoneType({row, onBlur, onChange}) {
   return (<input
     {...row}

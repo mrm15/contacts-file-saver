@@ -1,5 +1,3 @@
-import React from 'react';
-
 function YearType({onChange, onBlur, row}) {
   return <input
     type={'text'}

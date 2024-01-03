@@ -1,5 +1,3 @@
-import React from 'react';
-
 function SmallFloatType({row,onChange,onBlur}) {
   return (<input
     {...row}
