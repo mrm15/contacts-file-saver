@@ -6,12 +6,12 @@ const addContactsController = async (req, res) => {
 
   try {
 
-    debugger
+     
     const {
       firstName, lastName, phoneNumber, email, province, city, address,
     } = req.body;
 
-    debugger
+     
     if(!req?.userInfo){
       res.status(401).json({message:'userInfo موجود  نیست!'})
 

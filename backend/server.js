@@ -76,5 +76,5 @@ app.use('/contact', require('./routes/contact/contactsRouts'))
 
 
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  // console.log(`Server running at http://localhost:${port}`);
 });

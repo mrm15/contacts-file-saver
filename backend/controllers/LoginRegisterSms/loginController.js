@@ -18,9 +18,9 @@ const handleLoginSMS = async (req, res) => {
 
   try {
     const user = await findObjectByPhoneNumber(phoneNumber, usersFilePath, res);
-    console.log(user)
+    // console.log(user)
      
-    console.log(user)
+    // console.log(user)
     // اگه این آدم قبلا ثبت نام کرده بود. باید بگیم داری کلا اشتباه میزنی و گزینه ی آیا تا ب حال ثبت نام شده فعال بود دیگه نباید اجازه بدیم ادامه بده
     if (!user) {
       return res.status(401).json({
@@ -110,7 +110,7 @@ const verifyLoginSMS = async (req, res) => {
 
     // Detected refresh token reuse!
     if (!foundToken) {
-      console.log('attempted refresh token reuse at login!')
+      // console.log('attempted refresh token reuse at login!')
       // clear out ALL previous refresh tokens
     }
 

@@ -11,15 +11,15 @@ const {usersFilePath} = require('../filesPath')
 
 const handleLogout = async (req, res) => {
 
-  debugger
+   
   let phoneNumber= req?.userInfo?.phoneNumber
 
   if (!phoneNumber) return res.status(400).json({'message': 'شماره تلفن یافت نشد'});
 
   try {
-    debugger
+     
     const user = await findObjectByPhoneNumber(phoneNumber, usersFilePath, res);
-    console.log(user)
+    // console.log(user)
 
 
     // اگه این آدم قبلا ثبت نام کرده بود. باید بگیم داری کلا اشتباه میزنی و گزینه ی آیا تا ب حال ثبت نام شده فعال بود دیگه نباید اجازه بدیم ادامه بده

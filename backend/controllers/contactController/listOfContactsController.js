@@ -8,7 +8,7 @@ const listOfContactsController = async (req, res) => {
 
   try {
 
-    debugger
+     
 
     const listOwnContactAccess = req?.userInfo?.listOwnContactAccess
     const listAllContactAccess = req?.userInfo?.listAllContactAccess

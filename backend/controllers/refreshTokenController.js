@@ -5,7 +5,7 @@ const {findObjectByRefreshToken, updateArray, findObjectByPhoneNumber} = require
 
 const handleRefreshToken = async (req, res) => {
 
-  debugger
+   
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.status(401).json({
     message:`
@@ -50,10 +50,10 @@ const handleRefreshToken = async (req, res) => {
 
     process.env.REFRESH_TOKEN_SECRET,
     async (err, decoded) => {
-      debugger
+       
       if (err) {
-        debugger
-        console.log('expired refresh token')
+        //  
+        // console.log('expired refresh token')
         return res.status(500).json({'status': false, message: err+'this is here '});
       }
 
