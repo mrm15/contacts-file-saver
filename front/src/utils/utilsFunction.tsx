@@ -52,25 +52,9 @@ export const addRowIdtoTable = (t) => {
 
 }
 
-const encodeToAscii = (str) => {
-    let newStr = '';
-    for (let i = 0; i < str.length; i++) {
-        let code = str.charCodeAt(i) + " ";
-        newStr += code
-    }
 
-    return newStr;
-}
 
-const stringifyObjectsOfArrayAndJoin = (data) => {
 
-    const temp = data.map(v => {
-        if (typeof (v) === 'object') return JSON.stringify(v);
-        return v;
-    })
-    return temp.join(mySpecialString);
-    // return data.toString();
-}
 
 const downloadBlob = (content, filename, contentType) => {
     // Create a blob
