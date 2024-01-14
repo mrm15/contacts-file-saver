@@ -1,12 +1,12 @@
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import {AgGridReact} from "ag-grid-react";
 import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import ControlColumns from "./ControlColumns.tsx"; // Optional theme CSS
 
-const MyGridComponent = (props) => {
+const aggridDataShow = (props) => {
 
-    const {columnDefs, rowData} = props
+    const {columnDefs, rowData,onCellClicked} = props
     const [myColumnDefs, setMyColumnDefs] = useState(columnDefs);
 
     const [myRowData, setMyRowData] = useState(rowData);
@@ -50,24 +50,62 @@ const MyGridComponent = (props) => {
 
         setMyColumnDefs(newCols)
     }
+
+
+
+
+    const gridRef = useRef(null);
+
+    const onGridReady = (params) => {
+        const allColumnIds = [];
+        params.columnApi.getAllColumns().forEach((column) => {
+            allColumnIds.push(column.colId);
+        });
+
+        params.columnApi.autoSizeColumns(allColumnIds, false);
+    };
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (gridRef.current) {
+                gridRef.current.api.sizeColumnsToFit();
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+
+
+
     return (
         <div className="ag-theme-alpine" style={{height: "60vh", width: '100%', direction: 'rtl'}}
         >
             <AgGridReact
-
+                ref={gridRef}
+                onGridReady={onGridReady}
+                onCellClicked={onCellClicked}
+                //
                 columnDefs={myColumnDefs}
                 rowData={myRowData}
                 onBodyScroll={onBodyScroll}
-                localeText={persianLocale}
+                // localeText={persianLocale}
                 pagination={true}
                 paginationPageSize={10}
                 enableRtl={true}
+                rowSelection="multiple"
                 defaultColDef={{
                     flex: 1,
                     minWidth: 100,
                     filter: true,
                     resizable: true,
                 }}
+
+
 
 
             />
@@ -81,4 +119,4 @@ const MyGridComponent = (props) => {
     );
 };
 
-export default MyGridComponent;
+export default aggridDataShow;

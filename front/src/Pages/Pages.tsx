@@ -10,6 +10,9 @@ import LoginSMS from "../Components/LoginSMS.tsx";
 import {PAGES} from "./Route-string.tsx"
 import AddContact from "../Components/Contact/AddContact.tsx";
 import ListContact from "../Components/Contact/ListContact.tsx";
+import Unauthorized from "../Components/Unauthorized/Unauthorized.tsx";
+import AddUser from "../Components/User/AddUser.tsx";
+import ListUsers from "../Components/User/ListUsers.tsx";
 
 const ROLES = {
     "addContactAccess": "addContactAccess",
@@ -69,6 +72,17 @@ const Pages = () => {
 
                         <Route element={<RequireAuth allowedRoles={ROLES.listAllContactAccess}/>}>
                             <Route path={PAGES.LIST_CONTACTS} element={<ListContact/>}/>
+                        </Route>
+
+                        <Route element={<RequireAuth allowedRoles={ROLES.addUserAccess}/>}>
+                            <Route path={PAGES.ADD_USER} element={<AddUser/>}/>
+                        </Route>
+                        <Route element={<RequireAuth allowedRoles={ROLES.addUserAccess}/>}>
+                            <Route path={PAGES.LIST_USERS} element={<ListUsers/>}/>
+                        </Route>
+
+                        <Route element={<RequireAuth allowedRoles={ROLES.listAllContactAccess}/>}>
+                            <Route path={'/unauthorized'} element={<Unauthorized/>}/>
                         </Route>
 
 

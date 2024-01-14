@@ -5,6 +5,7 @@ import "./style.scss"
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 import {toast} from "react-toastify";
 import {useLocation, useNavigate} from "react-router-dom";
+import {MODES} from "../CONSTANTS/consts.tsx";
 
 // Define the props interface
 interface AddContactProps  {
@@ -30,10 +31,7 @@ const initialFormData:AddContactProps = {
     "address": "",
 }
 
-const MODES = {
-    ADD: "add",
-    EDIT: "edit"
-}
+
 
 function AddContact() {
 

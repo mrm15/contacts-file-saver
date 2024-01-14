@@ -61,7 +61,7 @@ function ListContact() {
             const confirmResult2 = confirm(message)
             if (confirmResult2) {
                 debugger
-                handleDeleteContact(data.phoneNumber)
+                await handleDeleteContact(data.phoneNumber)
             }
         }
     }
@@ -92,11 +92,11 @@ function ListContact() {
             }),
         },
         /////////////////////
-        {headerName: "شماره تماس", field: "phoneNumber", hide: false},
-        {headerName: "نام", field: "firstName", hide: false},
-        {headerName: "نام خانوادگی", field: "lastName", hide: false},
+        {headerName: "شماره تماس", field: "phoneNumber",minWidth:150, hide: false},
+        {headerName: "نام", field: "firstName",minWidth:150, hide: false},
+        {headerName: "نام خانوادگی", field: "lastName",minWidth:150, hide: false},
         {headerName: "ایمیل", field: "email", hide: false},
-        {headerName: "کاربر ثبت کننده", field: "user", hide: false},
+        {headerName: "کاربر ثبت کننده", field: "user",minWidth:150, hide: false},
         {headerName: "استان", field: "province", hide: false},
         {headerName: "شهر", field: "city", hide: false},
         {headerName: "آدرس", field: "address", hide: false},
