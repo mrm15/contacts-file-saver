@@ -8,7 +8,7 @@ const listOfUsersController = require('../../controllers/userController/listOfUs
 router.post('/add', addUserController);
 router.post('/edit', editUserController);
 router.post('/delete', deleteUserController);
-router.post('/list', listOfUsersController);
+router.get('/list', listOfUsersController);
 
 
 module.exports = router;

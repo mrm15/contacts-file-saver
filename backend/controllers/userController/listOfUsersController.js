@@ -2,6 +2,8 @@ const {readArrayFile} = require("../functions");
 const {usersFilePath} = require("../filesPath");
 
 const listOfUsersController = async (req, res) => {
+
+  debugger
   try {
     if (!req?.userInfo?.listUserAccess) {
       res.status(406).send({

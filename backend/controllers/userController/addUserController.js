@@ -3,6 +3,7 @@ const {addRowToArray} = require("../functions");
 const {usersFilePath} = require("../filesPath");
 
 const addUserController = async (req, res) => {
+  debugger
   try {
     const {
       phoneNumber,
@@ -26,7 +27,7 @@ const addUserController = async (req, res) => {
     }
 
     if (!phoneNumber || !name) {
-      return res.status(400).json({message: 'شماره تماس و نام باید وارد شوند.'});
+      return res.status(400).json({message: 'شماره تماس کاربر و نام کاربر باید وارد شوند.'});
     }
 
     const newUser = {
