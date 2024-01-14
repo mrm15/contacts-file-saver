@@ -1,4 +1,4 @@
- import {Outlet} from "react-router-dom";
+import {Outlet} from "react-router-dom";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import HeaderDashboard from "./DashboardBody/HeaderDashboard";
@@ -9,6 +9,7 @@ import './Dashboard.scss';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import SideBar from "../SideBar/SideBar";
+
 const Dashboard = () => {
 
     return (
@@ -21,7 +22,9 @@ const Dashboard = () => {
                     <div className="main-outlet0 min-h-screen">
                         <HeaderDashboard/>
 
-                        <div style={{minHeight:'85vh', overflowY:'scroll'}}>
+                        <div
+                            style={{minHeight: '85vh', overflowY: 'scroll'}}
+                        >
                             <Outlet/>
                         </div>
                         <FooterDashboard/>

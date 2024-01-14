@@ -3,10 +3,9 @@ import {useLocation} from "react-router-dom";
 import { FaBars,FaTimes } from 'react-icons/fa';
 
 import useAuth from "../../../hooks/useAuth.tsx";
-import HeaderMenu from "./HeaderMenu.tsx";
-import { useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {sidebarActions} from "../../../store/sidebarReducer/sidebarReducer.tsx";
+import ProfileInHeader from "./ProfileInHeader.tsx";
 
 
 const HeaderDashboard = () => {
@@ -19,7 +18,6 @@ const HeaderDashboard = () => {
     const title = location.state?.title !== undefined ? location.state.title : "پیشخوان";
 
 
-    const [openMenu, setOpenMenu] = useState(false)
 
     const dispatch = useDispatch();
     // @ts-ignore
@@ -71,31 +69,8 @@ const HeaderDashboard = () => {
                     </div>
 
 
-                    <div className={'relative'}>
-                        <button className={'rounded bg-blue-400 px-1'}
-                            // onClick={()=>setOpenMenu(!openMenu)}
+                    <ProfileInHeader />
 
-                                onMouseMove={() => setOpenMenu(true)}
-                            // onMouseLeave={()=>setOpenMenu(false)}
-                                onBlur={() => setOpenMenu(false)}
-
-
-                        >
-                            <div>
-                                {auth?.userInfo?.name ? (auth?.userInfo?.name) : 'کاربر'} &nbsp;عزیز خوش آمدید
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                            </div>
-
-                        </button>
-                        {openMenu && <div
-                          onMouseMove={() => setOpenMenu(true)}
-                            // onMouseLeave={()=>setOpenMenu(false)}
-                          onMouseLeave={() => setOpenMenu(false)}
-                        >
-                          <HeaderMenu/>
-
-                        </div>}
-                    </div>
                 </div>
 
 

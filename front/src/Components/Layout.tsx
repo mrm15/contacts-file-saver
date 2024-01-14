@@ -15,7 +15,13 @@ const Layout = () => {
                 <div className="w-full">
                     <div className="main-outlet0 min-h-screen">
                         <HeaderDashboard/>
-                        <div style={{minHeight: '85vh', overflowY: 'scroll'}}>
+                        <div
+                            style={{
+                                minHeight: '85vh',
+                                //overflowY: 'scroll',
+                                padding: '0 5px',
+                        }}
+                        >
                             <Outlet/>
                         </div>
                         <FooterDashboard/>

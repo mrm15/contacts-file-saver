@@ -24,13 +24,13 @@ function HeaderMenu() {
     }
 
     return (
-        <div className={'absolute left-0 w-44 flex flex-col p-5 bg-amber-300'}>
+        <ul className={'absolute left-0 w-44 flex flex-col p-5 bg-zinc-300 z-10'}>
 
-            <div
+            <li
                 onClick={signOut}
-                className={'cursor-pointer'}>خروج از سایت
-            </div>
-        </div>
+                className={'cursor-pointer block  rounded px-4 hover:bg-blue-400'}>خروج از سایت
+            </li>
+        </ul>
     );
 }
 

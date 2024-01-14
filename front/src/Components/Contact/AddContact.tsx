@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {Fragment, useEffect, useState} from 'react';
 import useObjectDataHolder from "../../hooks/UseObjectDataHolder.tsx";
 import DynamicFormInputs from "../UI/FormInputType/DynamicFormInputs.tsx";
 import "./style.scss"
@@ -192,7 +192,7 @@ function AddContact() {
 
                             }
 
-                            return <div className={''} key={index}>
+                            return <Fragment key={index}>
                                 <DynamicFormInputs
 
                                     row={row}
@@ -200,7 +200,7 @@ function AddContact() {
                                     onBlur={onBlur}
 
                                 />
-                            </div>
+                            </Fragment>
                         })}
                     </div>
                     <>

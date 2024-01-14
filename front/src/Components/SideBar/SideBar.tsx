@@ -69,13 +69,13 @@ const Home = () => {
         // { name: "Saved", link: "/", icon: AiOutlineHeart, margin: true },
         // { name: "Setting", link: "/", icon: RiSettings4Line },
     ];
-    const status = isMobile && !isOpen
     return (
-        <section className={`flex gap-6  duration-500 ${status ? "width__0" : 'w-44'}`}>
+        <section className={``}>
             <div
                 className={`bg-[#334667] min-h-screen 
-                ${isOpen ? "w-44" : "w-16"}
-                 duration-500 text-gray-100 px-4`}
+                ${isOpen ? "w-44 px-4 " : isMobile ? "width__0" : "w-16 px-4"}
+               
+                 duration-500 text-gray-100 `}
             >
                 <div className="py-3 flex justify-end">
                     <HiMenuAlt3
