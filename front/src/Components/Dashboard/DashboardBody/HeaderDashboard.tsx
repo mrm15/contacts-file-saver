@@ -1,13 +1,10 @@
 import './DashboardBody.scss';
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import { FaBars,FaTimes } from 'react-icons/fa';
 
-
-import useLogout from "../../../hooks/useLogout.tsx";
-import LogoImg from "../../../assets/images/LogoImg";
 import useAuth from "../../../hooks/useAuth.tsx";
 import HeaderMenu from "./HeaderMenu.tsx";
-import {Fragment, useState} from "react";
+import { useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {sidebarActions} from "../../../store/sidebarReducer/sidebarReducer.tsx";
 
@@ -25,11 +22,14 @@ const HeaderDashboard = () => {
     const [openMenu, setOpenMenu] = useState(false)
 
     const dispatch = useDispatch();
+    // @ts-ignore
     const isOpenSidebar = useSelector(s => s.sidebarReducer.isOpen);
+    // @ts-ignore
     const isMobile = useSelector(s => s.sidebarReducer.isMobile);
 
     const toggleSidebar = () => {
         //dispatch(sellFactorActions.changeNumberHandler({id, column, event}))
+        // @ts-ignore
         dispatch(sidebarActions.fillInput({isOpen:!isOpenSidebar}));
     };
     try {

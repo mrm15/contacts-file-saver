@@ -93,7 +93,7 @@ const aggridDataShow = (props) => {
                 columnDefs={myColumnDefs}
                 rowData={myRowData}
                 onBodyScroll={onBodyScroll}
-                // localeText={persianLocale}
+                localeText={persianLocale}
                 pagination={true}
                 paginationPageSize={10}
                 enableRtl={true}

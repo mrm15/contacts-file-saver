@@ -3,7 +3,7 @@ import useLogout from "../../../hooks/useLogout.tsx";
 import {useNavigate} from "react-router-dom";
 
 
-function HeaderMenu(props) {
+function HeaderMenu() {
 
 
     // @ts-ignore

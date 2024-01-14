@@ -112,7 +112,8 @@ const MyForm = () => {
         resetForm({ values: initilaFormValues });
     };
 
-    return (<div>
+    // @ts-ignore
+    return <div>
 
 
             {
@@ -121,14 +122,13 @@ const MyForm = () => {
                     <Formik
                         initialValues={initialValues}
                         validationSchema={validationSchema}
-                        onSubmit={async (values, {setSubmitting, resetForm}) => {
+                        onSubmit={async (values, {resetForm}) => {
                             console.log(values);
                             await submitAddUser(values, resetForm)
                         }}
                     >
 
-                        {({errors, touched,resetForm}) => (
-                            <Form>
+                        {({errors, touched,resetForm}) => <Form>
                                 <div className={'flex gap-3 my-5'}>
 
                                     <div className={'font-bold'}>{title}</div>
@@ -145,13 +145,13 @@ const MyForm = () => {
                                 <div className="div__group__input_select">
                                     <label htmlFor="phoneNumber">شماره تماس کاربر (برای ورود به سامانه)</label>
                                     <Field name="phoneNumber" type="text" placeholder="Phone Number"/>
-                                    {errors.phoneNumber && touched.phoneNumber && <div>{errors.phoneNumber}</div>}
+                                    {touched.phoneNumber && typeof errors?.phoneNumber === 'string' && <div>{errors?.phoneNumber}</div>}
                                 </div>
 
                                 <div className="div__group__input_select">
                                     <label htmlFor="name">نام و نام خانوادگی کاربر</label>
                                     <Field name="name" type="text" placeholder="Name"/>
-                                    {errors.name && touched.name && <div>{errors.name}</div>}
+                                    {touched.name && typeof errors.name === 'string' && <div>{errors.name}</div>}
                                 </div>
 
                                 {/* Render checkboxes for boolean fields */}
@@ -173,7 +173,8 @@ const MyForm = () => {
                                         return <div className="div__group__input_select" key={key}>
                                             <label htmlFor={key}>{labelValue[key]}</label>
                                             <Field name={key} id={key} type="checkbox"/>
-                                            {errors[key] && touched[key] && <div>{errors[key]}</div>}
+                                            {touched[key] && typeof errors[key] === 'string' && <div>{errors[key] as string}</div>}
+
                                         </div>
                                     }
                                 )}
@@ -181,13 +182,11 @@ const MyForm = () => {
                                 <div className="div__group__input_select">
                                     <button type="submit">Submit</button>
                                 </div>
-                            </Form>
-                        )}
+                            </Form>}
                     </Formik>
                 </div>
             }
-        </div>
-    );
+        </div>;
 };
 
 export default MyForm;

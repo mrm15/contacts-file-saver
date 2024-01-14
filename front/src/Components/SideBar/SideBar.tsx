@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {HiMenuAlt3} from "react-icons/hi";
 import {MdOutlineDashboard} from "react-icons/md";
 // import { RiSettings4Line } from "react-icons/ri";
@@ -32,7 +32,9 @@ type MenuType = {
 const Home = () => {
 
     const dispatch = useDispatch();
+    // @ts-ignore
     const isOpen = useSelector(s => s.sidebarReducer.isOpen);
+    // @ts-ignore
     const isMobile = useSelector(s => s.sidebarReducer.isMobile);
     //const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
@@ -44,6 +46,7 @@ const Home = () => {
     };
     const toggleSidebar = () => {
         //dispatch(sellFactorActions.changeNumberHandler({id, column, event}))
+        // @ts-ignore
         dispatch(sidebarActions.fillInput({isOpen:!isOpen}));
     };
 
